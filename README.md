@@ -47,15 +47,17 @@ There are various attempts at fixing the uniqueness of an array of strings out t
 That being said, if you think this module is overkill, or not performing exceptionally well for your use case, here a conversion hint that might do the trick by exploiting joined strings grouped by `length` to avoid collisions with cases such as `['a', 'b']` and `['a,b']` or similar:
 
 ```js
-const store = [];
+const store = {};
 const asTemplate = strings => {
   const { length } = strings;
   const joined = strings.join(',');
   const map = store[length] || (store[length] = new Map);
-  if (!map.has(joined)) {
+  let result = map.get(joined);
+  if (!result) {
     // ⚠️ warning: no `raw` accessor defined in here
-    map.set(joined, Object.freeze([...strings]));
+    result = Object.freeze([...strings]);
+    map.set(joined, result);
   }
-  return map.get(joined);
+  return result;
 };
 ```
