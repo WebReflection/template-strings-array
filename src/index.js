@@ -76,7 +76,7 @@ const stringified = value => parse(stringify(value).replace(re, '\\\\'));
  * @param {string[]} strings
  * @returns {TemplateStringsArray}
  */
-export default function (strings) {
+export default strings => {
   const key = strings.reduce(mapped, chunks);
   return templates.get(key) || create(key, strings);
-}
+};
