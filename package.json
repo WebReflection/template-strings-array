@@ -1,0 +1,30 @@
+{
+  "name": "template-strings-array",
+  "version": "0.0.0",
+  "scripts": {
+    "test": "c8 node test.js"
+  },
+  "keywords": [
+    "template",
+    "tag",
+    "array",
+    "strings"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./tag": "./src/tag.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src/*",
+    "LICENSE",
+    "README.md"
+  ],
+  "author": "Andrea Giammarchi",
+  "license": "MIT",
+  "description": "A fast and efficient way to map arrays of strings as templates",
+  "devDependencies": {
+    "c8": "^10.1.3"
+  }
+}
