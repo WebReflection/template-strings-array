@@ -1,13 +1,13 @@
 import TemplateStringsArray from './src/index.js';
 import tag from './src/tag.js';
 
-const shim = TemplateStringsArray(['Hi\n!']);
-const tpl = Object`Hi\n!`;
-const raw = String.raw`Hi\n!`;
+const shim = TemplateStringsArray(['Hi"\x01"!']);
+const tpl = Object`Hi"\x01"!`;
+const raw = String.raw`Hi"\x01"!`;
 
 console.assert(shim[0] === tpl[0]);
 console.assert(shim.raw[0] !== tpl[0]);
-console.assert(shim.raw[0] === raw);
+console.assert(eval(`'${shim.raw.join('')}'`) === eval(`'${raw}'`));
 
 console.assert(
   TemplateStringsArray(['a']) ===

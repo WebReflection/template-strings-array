@@ -1,7 +1,7 @@
 //@ts-check
 
 const { defineProperty, freeze } = Object;
-const { stringify } = JSON;
+const { parse, stringify } = JSON;
 
 /** @typedef {Map<string,Chunks>} Chunks */
 
@@ -13,6 +13,7 @@ const templates = new Map;
 
 /** @type {WeakMap<TemplateStringsArray,ReadonlyArray<string>>} */
 const raws = new WeakMap;
+const re = /\\(?!")/g;
 
 const descriptor = {
   /**
@@ -69,7 +70,7 @@ const set = (strings, raw) => {
  * @param {string} value
  * @returns
  */
-const stringified = value => stringify(value).slice(1, -1);
+const stringified = value => parse(stringify(value).replace(re, '\\\\'));
 
 /**
  * @param {string[]} strings
